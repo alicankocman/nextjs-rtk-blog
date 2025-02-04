@@ -5,7 +5,7 @@ import { useCreatePostMutation } from '@/services/postsApi';
 export default function CreatePost() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [createPost, { isLoading, error }] = useCreatePostMutation();
+  const [createPost] = useCreatePostMutation();
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,9 +19,13 @@ export default function CreatePost() {
       setTitle('');
       setBody('');
       alert(`Post başarıyla oluşturuldu! ID: ${result.id}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Create error:', error);
-      setErrorMessage(error.data?.message || 'Post oluşturulurken bir hata oluştu');
+      setErrorMessage(
+        error instanceof Error 
+          ? error.message 
+          : 'Post oluşturulurken bir hata oluştu'
+      );
     }
   };
 

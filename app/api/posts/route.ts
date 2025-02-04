@@ -6,7 +6,6 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  // Veritabanına kaydet
+  // body kullanılmadığı için kaldırıldı
   return NextResponse.json({ success: true });
 } 

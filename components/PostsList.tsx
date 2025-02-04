@@ -34,9 +34,13 @@ export default function PostsList() {
     try {
       await deletePost(id).unwrap();
       alert('Post başarıyla silindi!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Delete error:', error);
-      alert(error.data?.message || 'Silme işlemi başarısız oldu!');
+      alert(
+        error instanceof Error 
+          ? error.message 
+          : 'Silme işlemi başarısız oldu!'
+      );
     }
   };
 
